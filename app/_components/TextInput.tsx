@@ -1,0 +1,88 @@
+import { useId, useState } from "react";
+import { moveNames } from "../_data/moves";
+import { typeNames } from "../_data/types";
+import { abilityNames } from "../_data/abilities";
+import { eggGroupNames } from "../_data/eggGroups";
+import { cleanQueryText } from "../_utils/dataCleaners";
+import { QueryCriteria } from "../_utils/types";
+
+type TextInputProps = {
+  label: string;
+  queryCriterion: QueryCriteria;
+  handleInput: (cleanedText: string) => void;
+  className?: string;
+};
+
+const namesOfAll = {
+  moves: moveNames,
+  types: typeNames,
+  ability: abilityNames,
+  eggGroups: eggGroupNames,
+};
+
+function prioritizeStartOfNames(searchText: string, names: string[]) {
+  const matchesAtWordStart: string[] = [];
+  const matchesNotAtWordStart: string[] = [];
+  const searchTextBeginning = new RegExp(`^${searchText}`);
+
+  names.forEach(name => {
+    const isAtBeginning = searchTextBeginning.test(name);
+    if (isAtBeginning) {
+      matchesAtWordStart.push(name);
+    } else {
+      matchesNotAtWordStart.push(name);
+    }
+  });
+
+  return [...matchesAtWordStart, ...matchesNotAtWordStart];
+}
+
+export default function TextInput({
+  label, queryCriterion, handleInput, className
+}: TextInputProps) {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const textInputId = `textInput-${useId()}`;
+  const dataListId = `dataList-${useId()}`;
+
+  function updateSuggestions(searchText: string, names: string[]) {
+    let filteredNames: string[] = [];
+    if (searchText !== '') {
+      filteredNames = names.filter(name => {
+        return name.includes(searchText);
+      });
+      filteredNames = prioritizeStartOfNames(searchText, names);
+    }
+
+    setSuggestions(filteredNames);
+  }
+
+  return (
+    <div className={className}>
+      <label
+        htmlFor={textInputId}
+        className="block"
+      >
+        {label}
+      </label>
+      <input
+        id={textInputId}
+        type="text"
+        autoComplete="off"
+        list={dataListId}
+        onInput={(event) => {
+          const cleanedText = cleanQueryText(event.currentTarget.value);
+          handleInput(cleanedText);
+          updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
+        }}
+        className="w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500"
+      />
+      <datalist id={dataListId}>
+        {suggestions.map((suggestion, key) => {
+          return (
+            <option key={key} value={suggestion}></option>
+          );
+        })}
+      </datalist>
+    </div>
+  );
+}
