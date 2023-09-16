@@ -5,6 +5,7 @@ import { abilityNames } from "../_data/abilities";
 import { eggGroupNames } from "../_data/eggGroups";
 import { cleanQueryText } from "../_utils/dataCleaners";
 import { QueryCriteria } from "../_utils/types";
+import { isValidInput } from "../_utils/validators";
 
 type TextInputProps = {
   label: string;
@@ -40,9 +41,11 @@ function prioritizeStartOfNames(searchText: string, names: string[]) {
 export default function TextInput({
   label, queryCriterion, handleInput, className
 }: TextInputProps) {
+  const [isValid, setIsValid] = useState(true);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const textInputId = `textInput-${useId()}`;
   const dataListId = `dataList-${useId()}`;
+  const validityClassName = isValid ? '' : 'outline-red-700';
 
   function updateSuggestions(searchText: string, names: string[]) {
     let filteredNames: string[] = [];
@@ -71,10 +74,11 @@ export default function TextInput({
         list={dataListId}
         onInput={(event) => {
           const cleanedText = cleanQueryText(event.currentTarget.value);
+          setIsValid(isValidInput(cleanedText, queryCriterion));
           handleInput(cleanedText);
           updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
         }}
-        className="w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500"
+        className={`w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500 ${validityClassName}`}
       />
       <datalist id={dataListId}>
         {suggestions.map((suggestion, key) => {
