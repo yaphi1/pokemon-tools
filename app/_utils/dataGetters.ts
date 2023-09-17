@@ -1,4 +1,4 @@
-import { Query, PokemonReference } from "./types";
+import { Query, PokemonReference, PokemonData } from "./types";
 import {
   filterByMoves,
   filterByTypes,
@@ -16,6 +16,31 @@ type PokemonType = string;
 type PokemonMove = string;
 type Ability = string;
 type EggGroup = string;
+
+export async function getPokemonData({ name, url }: PokemonReference): Promise<PokemonData> {
+  const localData = window.localStorage.getItem(name);
+  if (localData) {
+    const pokemonData: PokemonData = JSON.parse(localData);
+    return pokemonData;
+  }
+  const response = await fetch(url);
+  const json = await response.json();
+  const { sprites, stats } = json;
+  const pokemonData: PokemonData = {
+    name,
+    spriteUrl: sprites.other.home.front_default || sprites.front_default,
+    stats: {
+      hp: stats[0].base_stat,
+      attack: stats[1].base_stat,
+      defense: stats[2].base_stat,
+      specialAttack: stats[3].base_stat,
+      specialDefense: stats[4].base_stat,
+      speed: stats[5].base_stat,
+    },
+  };
+  window.localStorage.setItem(name, JSON.stringify(pokemonData));
+  return pokemonData;
+}
 
 export async function getPokemonByMove(move: PokemonMove): Promise<PokemonReference[]> {
   if (!isValidMove(move)) { return []; }

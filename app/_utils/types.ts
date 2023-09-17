@@ -13,3 +13,16 @@ export type PokemonReference = {
 };
 
 export type ImmerStateUpdaterFn<TypeOfState> = (state?: TypeOfState | undefined) => TypeOfState;
+
+export type PokemonData = {
+  name: string;
+  spriteUrl: string;
+  stats: {
+    hp: number;
+    attack: number;
+    defense: number;
+    specialAttack: number;
+    specialDefense: number;
+    speed: number;
+  };
+};
