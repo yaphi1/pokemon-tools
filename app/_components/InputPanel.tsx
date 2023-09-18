@@ -29,7 +29,6 @@ export default function InputPanel({ setResults }: InputPanelProps) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log('form submitted');
           updateResults();
         }}
         className="grid gap-4 grid-cols-4"

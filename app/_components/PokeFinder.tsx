@@ -9,8 +9,8 @@ export default function PokeFinder() {
   const [results, setResults] = useState<PokemonReference[]>([]);
 
   return (
-    <div className="my-12 mx-auto max-w-5xl">
-      <div className="text-4xl mb-4">
+    <div className="my-20 mx-auto max-w-5xl">
+      <div className="text-5xl mb-4">
         Poké Finder
       </div>
       <InputPanel setResults={setResults} />

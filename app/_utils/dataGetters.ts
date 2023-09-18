@@ -112,7 +112,6 @@ export async function getPokemonByQuery(query: Query) {
   pokemonList = await filterByAbility(pokemonList, query.ability);
   pokemonList = await filterByEggGroups(pokemonList, query.eggGroups);
 
-  console.log({pokemonList});
   return pokemonList;
 }
 
