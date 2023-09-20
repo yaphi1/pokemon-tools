@@ -105,7 +105,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
   }
 
   return (
-    <div>
+    <div className="overflow-auto -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
         <table className="table-fixed border-collapse mt-8 w-full">
           <thead>
@@ -118,7 +118,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                   Pokémon
                 </span> {sortBy === 'name' && getSortArrow()}
               </td>
-              <td className="py-3 px-4"></td>
+              <td className="py-3 px-4 w-60"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}

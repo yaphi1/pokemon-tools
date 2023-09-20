@@ -31,7 +31,7 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           event.preventDefault();
           updateResults();
         }}
-        className="grid gap-4 grid-cols-4"
+        className="grid gap-4 grid-cols-2 md:grid-cols-4"
       >
         {query.types.map((_, index) => {
           return (
@@ -96,7 +96,7 @@ export default function InputPanel({ setResults }: InputPanelProps) {
 
         <button
           type="submit"
-          className="rounded-md col-span-4 p-3 bg-cyan-950 hover:bg-cyan-700 text-slate-100"
+          className="rounded-md col-span-full p-3 bg-cyan-950 hover:bg-cyan-700 text-slate-100"
         >Click to Search</button>
       </form>
 
