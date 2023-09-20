@@ -16,7 +16,7 @@ export default function PokeFinder() {
       <InputPanel setResults={setResults} />
       <ResultsPanel results={results} />
       <div className="mt-10 text-base">
-        Code by <a className="underline text-cyan-600 hover:text-cyan-500" target="_blank" href="https://github.com/yaphi1/">Yaphi</a>.
+        Code by <a className="underline text-cyan-600 hover:text-cyan-500" target="_blank" href="https://github.com/yaphi1/pokemon-tools">Yaphi</a>.
         Data from <a className="underline text-cyan-600 hover:text-cyan-500" target="_blank" href="https://pokeapi.co/">PokéApi</a>.
       </div>
     </div>
