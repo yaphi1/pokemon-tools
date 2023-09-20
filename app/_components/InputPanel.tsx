@@ -99,12 +99,6 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           className="rounded-md col-span-full p-3 bg-cyan-950 hover:bg-cyan-700 text-slate-100"
         >Click to Search</button>
       </form>
-
-      {/* <div>
-        Query:
-        <div>{JSON.stringify(query)}</div>
-      </div> */}
-
     </div>
   );
 }

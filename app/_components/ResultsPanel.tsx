@@ -78,7 +78,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
       setPokemonData(sortedResults);
     }
     getFullResults();
-  }, [results]);
+  }, [results, sortBy, sortOrder]);
 
   function getOppositeSortOrder(currentOrder: SortOrder) {
     const newOrder = currentOrder === 'defaultOrder' ? 'reverseOrder' : 'defaultOrder';
