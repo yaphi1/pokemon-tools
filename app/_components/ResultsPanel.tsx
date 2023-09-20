@@ -105,7 +105,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
   }
 
   return (
-    <div className="overflow-auto -mr-10 md:mr-0">
+    <div className="overflow-auto md:overflow-visible -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
         <table className="table-fixed border-collapse mt-8 w-full">
           <thead>
