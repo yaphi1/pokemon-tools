@@ -26,22 +26,34 @@ const statTypes: {id: SortBy, label: string}[] = [
   { id: 'speed', label: 'Spe' },
 ];
 
+function compareForSort({ a, b, isAscending }: {
+  a: string|number,
+  b: string|number,
+  isAscending: boolean
+}) {
+  const ascendingSort = a > b ? 1 : -1;
+  const descendingSort = a < b ? 1 : -1;
+
+  return isAscending ? ascendingSort : descendingSort;
+}
+
 function sortFullResults(
   fullResults: PokemonData[],
   sortBy: SortBy,
   sortOrder: SortOrder,
 ) {
-  const sortedResults = fullResults.sort((a, b) => {
+  const sortedResults = [...fullResults].sort((a, b) => {
     const resultA = {name: a.name, ...a.stats }[sortBy];
     const resultB = {name: b.name, ...b.stats }[sortBy];
     const defaultOrder = sortBy === 'name' ?
-      Number(resultA > resultB) :
-      Number(resultA < resultB)
+      compareForSort({ a: resultA, b: resultB, isAscending: true }) :
+      compareForSort({ a: resultA, b: resultB, isAscending: false })
     ;
     const reverseOrder = sortBy === 'name' ?
-      Number(resultA < resultB) :
-      Number(resultA > resultB)
+      compareForSort({ a: resultA, b: resultB, isAscending: false }) :
+      compareForSort({ a: resultA, b: resultB, isAscending: true })
     ;
+
     return sortOrder === 'defaultOrder' ? defaultOrder : reverseOrder;
   });
 
