@@ -10,7 +10,7 @@ export default function PokeFinder() {
 
   return (
     <div className="my-20 mx-auto max-w-6xl px-10">
-      <div className="text-5xl mb-4">
+      <div className="text-6xl mb-4">
         Poké Finder
       </div>
       <InputPanel setResults={setResults} />

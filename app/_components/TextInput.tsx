@@ -61,16 +61,17 @@ export default function TextInput({
 
   return (
     <div className={className}>
-      <label
+      {/* <label
         htmlFor={textInputId}
         className="block"
       >
         {label}
-      </label>
+      </label> */}
       <input
         id={textInputId}
         type="text"
         autoComplete="off"
+        aria-label={label}
         list={dataListId}
         onInput={(event) => {
           const cleanedText = cleanQueryText(event.currentTarget.value);
@@ -78,7 +79,7 @@ export default function TextInput({
           handleInput(cleanedText);
           updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
         }}
-        className={`w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500 ${validityClassName}`}
+        className={`w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500 focus:outline-2 ${validityClassName}`}
       />
       <datalist id={dataListId}>
         {suggestions.map((suggestion, key) => {

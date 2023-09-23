@@ -31,72 +31,100 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           event.preventDefault();
           updateResults();
         }}
-        className="grid gap-4 grid-cols-2 md:grid-cols-4"
+        className="grid gap-4 grid-cols-6"
       >
-        {query.types.map((_, index) => {
-          return (
-            <TextInput
-              key={index}
-              label={`Type ${index + 1}:`}
-              queryCriterion="types"
-              className="col-span-2"
-              handleInput={(cleanedText) => {
-                const newQuery = produce<Query>(draftQuery => {
-                  draftQuery.types[index] = cleanedText;
-                });
-                setQuery(newQuery);
-              }}
-            />
-          );
-        })}
+        <div className="p-4 bg-slate-300 rounded-md col-span-2">
+          <div className="mb-2">
+            Types
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {query.types.map((_, index) => {
+              return (
+                <TextInput
+                  key={index}
+                  label={`Type ${index + 1}:`}
+                  queryCriterion="types"
+                  className=""
+                  handleInput={(cleanedText) => {
+                    const newQuery = produce<Query>(draftQuery => {
+                      draftQuery.types[index] = cleanedText;
+                    });
+                    setQuery(newQuery);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
         
-        {query.moves.map((_, index) => {
-          return (
-            <TextInput
-              key={index}
-              label={`Move ${index + 1}:`}
-              queryCriterion="moves"
-              handleInput={(cleanedText) => {
-                const newQuery = produce<Query>(draftQuery => {
-                  draftQuery.moves[index] = cleanedText;
-                });
-                setQuery(newQuery);
-              }}
-            />
-          );
-        })}
+        <div className="p-4 bg-slate-300 rounded-md col-span-4">
+          <div className="mb-2">
+            Moves
+          </div>
+          <div className="grid grid-cols-4 gap-4">
+            {query.moves.map((_, index) => {
+              return (
+                <div className="">
+                  <TextInput
+                    key={index}
+                    label={`Move ${index + 1}:`}
+                    queryCriterion="moves"
+                    handleInput={(cleanedText) => {
+                      const newQuery = produce<Query>(draftQuery => {
+                        draftQuery.moves[index] = cleanedText;
+                      });
+                      setQuery(newQuery);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
-        <TextInput
-          label="Ability:"
-          queryCriterion="ability"
-          className="col-span-2"
-          handleInput={(cleanedText) => {
-            const newQuery = produce<Query>(draftQuery => {
-              draftQuery.ability = cleanedText;
-            });
-            setQuery(newQuery);
-          }}
-        />
+        <div className="p-4 bg-slate-300 rounded-md col-span-3">
+          <div className="mb-2">
+            Ability
+          </div>
+          <TextInput
+            label="Ability:"
+            queryCriterion="ability"
+            className="col-span-2"
+            handleInput={(cleanedText) => {
+              const newQuery = produce<Query>(draftQuery => {
+                draftQuery.ability = cleanedText;
+              });
+              setQuery(newQuery);
+            }}
+          />
+        </div>
         
-        {query.eggGroups.map((_, index) => {
-          return (
-            <TextInput
-              key={index}
-              label={`Egg group ${index + 1}:`}
-              queryCriterion="eggGroups"
-              handleInput={(cleanedText) => {
-                const newQuery = produce<Query>(draftQuery => {
-                  draftQuery.eggGroups[index] = cleanedText;
-                });
-                setQuery(newQuery);
-              }}
-            />
-          );
-        })}
+        <div className="p-4 bg-slate-300 rounded-md col-span-3">
+          <div className="mb-2">
+            Egg Groups
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {query.eggGroups.map((_, index) => {
+              return (
+                <TextInput
+                  key={index}
+                  label={`Egg group ${index + 1}:`}
+                  queryCriterion="eggGroups"
+                  handleInput={(cleanedText) => {
+                    const newQuery = produce<Query>(draftQuery => {
+                      draftQuery.eggGroups[index] = cleanedText;
+                    });
+                    setQuery(newQuery);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
 
         <button
           type="submit"
-          className="rounded-md col-span-full p-3 bg-cyan-950 hover:bg-cyan-700 text-slate-100"
+          className="rounded-md col-span-full p-4 bg-cyan-950 hover:bg-cyan-700 text-slate-200"
         >Click to Search</button>
       </form>
     </div>
