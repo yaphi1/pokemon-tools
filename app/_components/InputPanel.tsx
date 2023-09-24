@@ -31,9 +31,9 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           event.preventDefault();
           updateResults();
         }}
-        className="grid gap-4 grid-cols-6"
+        className="grid gap-4"
       >
-        <div className="p-4 bg-slate-300 rounded-md col-span-2">
+        <div className="p-4 bg-slate-300 rounded-md">
           <div className="mb-2">
             Types
           </div>
@@ -57,32 +57,30 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           </div>
         </div>
         
-        <div className="p-4 bg-slate-300 rounded-md col-span-4">
+        <div className="p-4 bg-slate-300 rounded-md">
           <div className="mb-2">
             Moves
           </div>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {query.moves.map((_, index) => {
               return (
-                <div className="">
-                  <TextInput
-                    key={index}
-                    label={`Move ${index + 1}:`}
-                    queryCriterion="moves"
-                    handleInput={(cleanedText) => {
-                      const newQuery = produce<Query>(draftQuery => {
-                        draftQuery.moves[index] = cleanedText;
-                      });
-                      setQuery(newQuery);
-                    }}
-                  />
-                </div>
+                <TextInput
+                  key={index}
+                  label={`Move ${index + 1}:`}
+                  queryCriterion="moves"
+                  handleInput={(cleanedText) => {
+                    const newQuery = produce<Query>(draftQuery => {
+                      draftQuery.moves[index] = cleanedText;
+                    });
+                    setQuery(newQuery);
+                  }}
+                />
               );
             })}
           </div>
         </div>
 
-        <div className="p-4 bg-slate-300 rounded-md col-span-3">
+        <div className="p-4 bg-slate-300 rounded-md">
           <div className="mb-2">
             Ability
           </div>
@@ -99,7 +97,7 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           />
         </div>
         
-        <div className="p-4 bg-slate-300 rounded-md col-span-3">
+        <div className="p-4 bg-slate-300 rounded-md">
           <div className="mb-2">
             Egg Groups
           </div>

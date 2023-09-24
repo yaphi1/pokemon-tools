@@ -79,7 +79,7 @@ export default function TextInput({
           handleInput(cleanedText);
           updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
         }}
-        className={`w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500 focus:outline-2 ${validityClassName}`}
+        className={`w-full p-2 outline outline-1 outline-slate-400 shadow-inner rounded-sm hover:outline-2 focus:outline-cyan-500 focus:outline-2 ${validityClassName}`}
       />
       <datalist id={dataListId}>
         {suggestions.map((suggestion, key) => {
