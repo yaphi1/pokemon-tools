@@ -12,6 +12,7 @@ type TextInputProps = {
   queryCriterion: QueryCriteria;
   handleInput: (cleanedText: string) => void;
   className?: string;
+  showAllSuggestions?: boolean;
 };
 
 const namesOfAll = {
@@ -39,7 +40,7 @@ function prioritizeStartOfNames(searchText: string, names: string[]) {
 }
 
 export default function TextInput({
-  label, queryCriterion, handleInput, className
+  label, queryCriterion, handleInput, className, showAllSuggestions,
 }: TextInputProps) {
   const [isValid, setIsValid] = useState(true);
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -48,7 +49,10 @@ export default function TextInput({
 
   function updateSuggestions(searchText: string, names: string[]) {
     let filteredNames: string[] = [];
-    if (searchText !== '') {
+    const hasUserTyped = searchText !== '';
+    const shouldShowSuggestions = hasUserTyped || showAllSuggestions;
+
+    if (shouldShowSuggestions) {
       filteredNames = names.filter(name => {
         return name.includes(searchText);
       });
@@ -58,6 +62,13 @@ export default function TextInput({
     setSuggestions(filteredNames);
   }
 
+  function handleAutosuggest(event: React.FormEvent<HTMLInputElement>) {
+    const cleanedText = cleanQueryText(event.currentTarget.value);
+    setIsValid(isValidInput(cleanedText, queryCriterion));
+    handleInput(cleanedText);
+    updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
+  }
+
   return (
     <div className={className}>
       <input
@@ -65,12 +76,8 @@ export default function TextInput({
         autoComplete="off"
         aria-label={label}
         list={dataListId}
-        onInput={(event) => {
-          const cleanedText = cleanQueryText(event.currentTarget.value);
-          setIsValid(isValidInput(cleanedText, queryCriterion));
-          handleInput(cleanedText);
-          updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
-        }}
+        onFocus={handleAutosuggest}
+        onInput={handleAutosuggest}
         className={`w-full p-2 outline outline-1 outline-slate-400 shadow-inner rounded-sm hover:outline-2 focus:outline-cyan-500 focus:outline-2 ${validityClassName}`}
       />
       <datalist id={dataListId}>

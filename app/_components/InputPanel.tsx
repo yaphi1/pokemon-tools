@@ -44,6 +44,7 @@ export default function InputPanel({ setResults }: InputPanelProps) {
                   label={`Type ${index + 1}:`}
                   queryCriterion="types"
                   className=""
+                  showAllSuggestions={true}
                   handleInput={(cleanedText) => {
                     const newQuery = produce<Query>(draftQuery => {
                       draftQuery.types[index] = cleanedText;
@@ -107,6 +108,7 @@ export default function InputPanel({ setResults }: InputPanelProps) {
                   key={index}
                   label={`Egg group ${index + 1}:`}
                   queryCriterion="eggGroups"
+                  showAllSuggestions={true}
                   handleInput={(cleanedText) => {
                     const newQuery = produce<Query>(draftQuery => {
                       draftQuery.eggGroups[index] = cleanedText;
