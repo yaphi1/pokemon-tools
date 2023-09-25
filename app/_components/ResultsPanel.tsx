@@ -119,8 +119,8 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
   return (
     <div className="overflow-auto md:overflow-visible relative -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
-        <table className="w-full block text-lg">
-          <thead className="font-bold sticky -top-8 relative z-10">
+        <table className="w-[800px] lg:w-full pr-8 lg:pr-0 block text-lg">
+          <thead className="block sticky font-bold -top-8 relative z-10">
             <tr className="select-none grid grid-cols-12 rounded-t-lg bg-white">
               <td
                 className="py-4 px-4 col-span-2 cursor-pointer whitespace-nowrap"
@@ -144,19 +144,19 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block">
             {pokemonData.map((pokemon, key) => {
               const isLastRow = key === pokemonData.length - 1;
-              const rounding = isLastRow ? 'rounded-b-lg' : '';
+              const cornerRounding = isLastRow ? 'rounded-b-lg' : '';
 
               return (
-                <tr key={key} className={`bg-white odd:bg-slate-200 grid grid-cols-12 ${rounding}`}>
-                  <td className="px-4 py-1">
-                    <div className="p-1">
-                      <img className="w-full transition-transform hover:scale-125" src={pokemon.spriteUrl} alt="" />
+                <tr key={key} className={`bg-white odd:bg-slate-200 grid grid-cols-12 ${cornerRounding}`}>
+                  <td className="px-4 flex justify-center items-center">
+                    <div className="px-2">
+                      <img className="w-[40px] min-w-[40px] transition-transform hover:scale-125" src={pokemon.spriteUrl} alt="" />
                     </div>
                   </td>
-                  <td className="p-2 pl-0 col-span-5 flex items-center">
+                  <td className="py-4 pl-0 pr-2 col-span-5 flex items-center">
                     <div className="flex-1">{formatName(pokemon.name)}</div>
                   </td>
                   {Object.values(pokemon.stats).map((stat, key) => (
