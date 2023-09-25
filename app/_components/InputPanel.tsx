@@ -3,7 +3,6 @@ import { produce } from "immer";
 import { Query, PokemonReference } from "../_utils/types";
 import TextInput from "./TextInput";
 import { getPokemonByQuery } from "../_utils/dataGetters";
-import { cleanQueryText } from "../_utils/dataCleaners";
 
 type InputPanelProps = {
   setResults: (results: PokemonReference[]) => void;

@@ -120,24 +120,24 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
     <div className="overflow-auto md:overflow-visible relative -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
         <table className="w-full block text-lg">
-          <thead className="bg-white font-bold sticky -top-8 relative z-10">
-            <tr className="select-none grid grid-cols-12">
+          <thead className="font-bold sticky -top-8 relative z-10">
+            <tr className="select-none grid grid-cols-12 rounded-t-lg bg-white">
               <td
-                className="py-6 px-4 cursor-pointer whitespace-nowrap"
+                className="py-4 px-4 col-span-2 cursor-pointer whitespace-nowrap"
                 onClick={() => { sort('name'); }}
               >
-                <span className="underline decoration-2">
+                <span>
                   Pokémon
                 </span> {sortBy === 'name' && getSortArrow()}
               </td>
-              <td className="py-6 px-4 col-span-5"></td>
+              <td className="py-4 px-4 col-span-4"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}
-                  className="text-right py-6 px-4 cursor-pointer"
+                  className="text-right py-4 pr-4 cursor-pointer whitespace-nowrap"
                   onClick={() => { sort(statType.id); }}
                 >
-                  {sortBy === statType.id && getSortArrow()} <span className="underline decoration-2">
+                  {sortBy === statType.id && getSortArrow()} <span>
                     {statType.label}
                   </span>
                 </td>
@@ -146,18 +146,18 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
           </thead>
           <tbody>
             {pokemonData.map((pokemon, key) => {
+              const isLastRow = key === pokemonData.length - 1;
+              const rounding = isLastRow ? 'rounded-b-lg' : '';
+
               return (
-                // <tr key={key} className="bg-white odd:bg-orange-100 grid grid-cols-12">
-                <tr key={key} className="bg-white odd:bg-slate-200 grid grid-cols-12">
-                {/* <tr key={key} className="bg-white border-b border-slate-100 grid grid-cols-12"> */}
-                  <td className="px-4 py-2">
-                    {/* <div className="rounded-full bg-slate-100/50 p-2"> */}
+                <tr key={key} className={`bg-white odd:bg-slate-200 grid grid-cols-12 ${rounding}`}>
+                  <td className="px-4 py-1">
                     <div className="p-1">
                       <img className="w-full transition-transform hover:scale-125" src={pokemon.spriteUrl} alt="" />
                     </div>
                   </td>
                   <td className="p-2 pl-0 col-span-5 flex items-center">
-                    <div className="flex-1 text-xl">{formatName(pokemon.name)}</div>
+                    <div className="flex-1">{formatName(pokemon.name)}</div>
                   </td>
                   {Object.values(pokemon.stats).map((stat, key) => (
                     <td key={key} className="py-2 px-4 text-right flex items-center">

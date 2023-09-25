@@ -43,7 +43,6 @@ export default function TextInput({
 }: TextInputProps) {
   const [isValid, setIsValid] = useState(true);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const textInputId = `textInput-${useId()}`;
   const dataListId = `dataList-${useId()}`;
   const validityClassName = isValid ? '' : 'outline-red-700';
 
@@ -61,14 +60,7 @@ export default function TextInput({
 
   return (
     <div className={className}>
-      {/* <label
-        htmlFor={textInputId}
-        className="block"
-      >
-        {label}
-      </label> */}
       <input
-        id={textInputId}
         type="text"
         autoComplete="off"
         aria-label={label}
