@@ -3,6 +3,9 @@ import { produce } from "immer";
 import { Query, PokemonReference } from "../_utils/types";
 import TextInput from "./TextInput";
 import { getPokemonByQuery } from "../_utils/dataGetters";
+import Dropdown from "./Dropdown";
+import { typeNames } from "../_data/types";
+import { eggGroupNames } from "../_data/eggGroups";
 
 type InputPanelProps = {
   setResults: (results: PokemonReference[]) => void;
@@ -36,15 +39,13 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           <div className="mb-2">
             Types
           </div>
+          
           <div className="grid grid-cols-2 gap-4">
             {query.types.map((_, index) => {
               return (
-                <TextInput
+                <Dropdown
                   key={index}
-                  label={`Type ${index + 1}:`}
-                  queryCriterion="types"
-                  className=""
-                  showAllSuggestions={true}
+                  values={typeNames}
                   handleInput={(cleanedText) => {
                     const newQuery = produce<Query>(draftQuery => {
                       draftQuery.types[index] = cleanedText;
@@ -104,11 +105,9 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           <div className="grid grid-cols-2 gap-4">
             {query.eggGroups.map((_, index) => {
               return (
-                <TextInput
+                <Dropdown
                   key={index}
-                  label={`Egg group ${index + 1}:`}
-                  queryCriterion="eggGroups"
-                  showAllSuggestions={true}
+                  values={eggGroupNames}
                   handleInput={(cleanedText) => {
                     const newQuery = produce<Query>(draftQuery => {
                       draftQuery.eggGroups[index] = cleanedText;
