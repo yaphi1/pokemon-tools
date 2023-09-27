@@ -14,7 +14,7 @@ export default function PokeFinder() {
       <div className="overflow-auto lg:w-[350px] flex-none p-8 bg-slate-200">
         <div className="debug_hider">
           <div className="text-3xl mb-6 font-bold flex items-center gap-2">
-            <Pokeball svgClass="w-14" fillClass="fill-slate-600" />
+            <Pokeball className="w-14" fillColorClass="fill-slate-600" />
             <div>
               Poké Finder
             </div>

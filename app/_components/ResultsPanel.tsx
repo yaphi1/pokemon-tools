@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPokemonData } from "../_utils/dataGetters";
 import { PokemonData, PokemonReference } from "../_utils/types";
+import { ChevronDown } from "../_assets/icons";
 
 type ResultsPanelProps = {
   results: PokemonReference[];
@@ -112,8 +113,18 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
     setSortOrder(currentOrder);
   }
 
-  function getSortArrow() {
-    return sortOrder === 'defaultOrder' ? '∨' : '∧';
+  function getSortArrow(sortingCategory: SortBy) {
+    const shouldShowArrow = sortingCategory === sortBy;
+    const opacity = shouldShowArrow ? 'opacity-100' : 'opacity-0';
+    const rotation = sortOrder === 'defaultOrder' ? 0 : 180;
+
+    return (
+      <ChevronDown
+        className={`w-5 transition-all duration-500 ${opacity} relative top-px`}
+        style={{ transform: `rotateX(${rotation}deg)` }}
+        strokeColorClass="stroke-slate-400"
+      />
+    );
   }
 
   return (
@@ -123,23 +134,21 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
           <thead className="block sticky font-bold -top-8 relative z-10">
             <tr className="select-none grid grid-cols-12 rounded-t-lg bg-white">
               <td
-                className="py-4 px-4 col-span-2 cursor-pointer whitespace-nowrap"
+                className="py-4 px-4 col-span-2 cursor-pointer flex items-center"
                 onClick={() => { sort('name'); }}
               >
-                <span>
-                  Pokémon
-                </span> {sortBy === 'name' && getSortArrow()}
+                <span>Pokémon</span>
+                <span className="pl-2">{getSortArrow('name')}</span>
               </td>
               <td className="py-4 px-4 col-span-4"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}
-                  className="text-right py-4 pr-4 cursor-pointer whitespace-nowrap"
+                  className="text-right py-4 pr-4 cursor-pointer flex items-center justify-end"
                   onClick={() => { sort(statType.id); }}
                 >
-                  {sortBy === statType.id && getSortArrow()} <span>
-                    {statType.label}
-                  </span>
+                  <span>{getSortArrow(statType.id)}</span>
+                  <span className="pl-2">{statType.label}</span>
                 </td>
               ))}
             </tr>
