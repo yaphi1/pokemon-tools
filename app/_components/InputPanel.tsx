@@ -6,6 +6,7 @@ import { getPokemonByQuery } from "../_utils/dataGetters";
 import Dropdown from "./Dropdown";
 import { typeNames } from "../_data/types";
 import { eggGroupNames } from "../_data/eggGroups";
+import { Gift, MagnifyingGlass, Swatch, Tag, Trophy } from "../_assets/icons";
 
 type InputPanelProps = {
   setResults: (results: PokemonReference[]) => void;
@@ -36,8 +37,12 @@ export default function InputPanel({ setResults }: InputPanelProps) {
         className="grid gap-4"
       >
         <div className="p-4 bg-slate-300 rounded-md">
-          <div className="mb-2">
-            Types
+          <div className="mb-2 flex items-center">
+            <Tag
+              className="w-5 mr-1"
+              strokeColorClass="stroke-slate-400"
+            />
+            <span>Types</span>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
@@ -59,8 +64,12 @@ export default function InputPanel({ setResults }: InputPanelProps) {
         </div>
         
         <div className="p-4 bg-slate-300 rounded-md">
-          <div className="mb-2">
-            Moves
+          <div className="mb-2 flex items-center">
+            <Swatch
+              className="w-5 mr-1"
+              strokeColorClass="stroke-slate-400"
+            />
+            <span>Moves</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {query.moves.map((_, index) => {
@@ -82,8 +91,12 @@ export default function InputPanel({ setResults }: InputPanelProps) {
         </div>
 
         <div className="p-4 bg-slate-300 rounded-md">
-          <div className="mb-2">
-            Ability
+          <div className="mb-2 flex items-center">
+            <Trophy
+              className="w-5 mr-1"
+              strokeColorClass="stroke-slate-400"
+            />
+            <span>Ability</span>
           </div>
           <TextInput
             label="Ability:"
@@ -99,8 +112,12 @@ export default function InputPanel({ setResults }: InputPanelProps) {
         </div>
         
         <div className="p-4 bg-slate-300 rounded-md">
-          <div className="mb-2">
-            Egg Groups
+          <div className="mb-2 flex items-center">
+            <Gift
+              className="w-5 mr-1"
+              strokeColorClass="stroke-slate-400"
+            />
+            <span>Egg Groups</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {query.eggGroups.map((_, index) => {
@@ -122,8 +139,14 @@ export default function InputPanel({ setResults }: InputPanelProps) {
 
         <button
           type="submit"
-          className="rounded-md col-span-full p-4 bg-cyan-950 hover:bg-cyan-700 text-slate-200"
-        >Click to Search</button>
+          className="group rounded-md col-span-full p-4 bg-cyan-950 hover:bg-cyan-700 text-slate-200 flex items-center justify-center"
+        >
+          <MagnifyingGlass
+            className="w-5 mr-2 pointer-events-none"
+            strokeColorClass="stroke-slate-400 group-hover:stroke-slate-200"
+          />
+          <span className="pr-4">Click to Search</span>
+        </button>
       </form>
     </div>
   );
