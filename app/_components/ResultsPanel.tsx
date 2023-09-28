@@ -131,7 +131,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
     <div className="overflow-auto md:overflow-visible relative -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
         <table className="w-[800px] lg:w-full pr-8 lg:pr-0 block text-lg">
-          <thead className="block sticky font-bold -top-8 relative z-10">
+          <thead className="block sticky font-bold -top-8 z-10">
             <tr className="select-none grid grid-cols-12 rounded-t-lg bg-white">
               <td
                 className="py-4 px-4 col-span-2 cursor-pointer flex items-center"
