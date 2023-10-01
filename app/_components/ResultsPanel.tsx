@@ -135,17 +135,17 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
           <thead className="block sticky font-bold -top-8 z-10">
             <tr className={`select-none grid grid-cols-12 rounded-t-lg ${theme.tableHead}`}>
               <td
-                className="relative py-4 px-4 col-span-2 cursor-pointer flex items-center"
+                className="z-10 relative py-4 px-4 col-span-2 cursor-pointer flex items-center"
                 onClick={() => { sort('name'); }}
               >
                 <span>Pokémon</span>
                 <span className="pl-2">{getSortArrow('name')}</span>
               </td>
-              <td className="relative py-4 px-4 col-span-4"></td>
+              <td className="z-10 relative py-4 px-4 col-span-4"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}
-                  className="text-right relative py-4 pr-4 cursor-pointer flex items-center justify-end"
+                  className="z-10 relative py-4 pr-4 text-right cursor-pointer flex items-center justify-end"
                   onClick={() => { sort(statType.id); }}
                 >
                   <span>{getSortArrow(statType.id)}</span>

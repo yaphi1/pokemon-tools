@@ -1,5 +1,5 @@
 function generateTransparentTableHead({ bodyBg, tableHeaderBg }: { bodyBg: string, tableHeaderBg:string }) {
-  const bottomLayerBg = `${bodyBg} before:-z-1 before:block before:w-screen before:h-screen before:absolute before:-top-8 before:-right-8 before:pointer-events-none`;
+  const bottomLayerBg = `${bodyBg} before:block before:w-screen before:h-screen before:absolute before:-top-8 before:-right-8 before:pointer-events-none`;
   const topLayerBg = `${tableHeaderBg} after:absolute after:block after:w-full after:h-full after:top-0 after:left-0 after:pointer-events-none`;
   const framing = 'overflow-hidden relative';
 
