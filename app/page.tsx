@@ -1,10 +1,11 @@
-import { StrictMode } from "react";
 import PokeFinder from "./_components/PokeFinder";
+import DesignGrid from "./_components/DesignGrid";
 
 export default function Home() {
   return (
-    <main className="text-xl font-serif text-slate-600">
+    <main className="font-sans">
       <PokeFinder />
+      {/* <DesignGrid /> */}
     </main>
   );
 }

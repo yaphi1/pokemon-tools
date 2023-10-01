@@ -5,3 +5,8 @@
 input::-webkit-calendar-picker-indicator {
   display: none !important;
 }
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}

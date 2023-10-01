@@ -6,12 +6,14 @@ import { eggGroupNames } from "../_data/eggGroups";
 import { cleanQueryText } from "../_utils/dataCleaners";
 import { QueryCriteria } from "../_utils/types";
 import { isValidInput } from "../_utils/validators";
+import theme from "../_utils/themes";
 
 type TextInputProps = {
   label: string;
   queryCriterion: QueryCriteria;
   handleInput: (cleanedText: string) => void;
   className?: string;
+  showAllSuggestions?: boolean;
 };
 
 const namesOfAll = {
@@ -39,17 +41,19 @@ function prioritizeStartOfNames(searchText: string, names: string[]) {
 }
 
 export default function TextInput({
-  label, queryCriterion, handleInput, className
+  label, queryCriterion, handleInput, className, showAllSuggestions,
 }: TextInputProps) {
   const [isValid, setIsValid] = useState(true);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const textInputId = `textInput-${useId()}`;
   const dataListId = `dataList-${useId()}`;
   const validityClassName = isValid ? '' : 'outline-red-700';
 
   function updateSuggestions(searchText: string, names: string[]) {
     let filteredNames: string[] = [];
-    if (searchText !== '') {
+    const hasUserTyped = searchText !== '';
+    const shouldShowSuggestions = hasUserTyped || showAllSuggestions;
+
+    if (shouldShowSuggestions) {
       filteredNames = names.filter(name => {
         return name.includes(searchText);
       });
@@ -59,26 +63,23 @@ export default function TextInput({
     setSuggestions(filteredNames);
   }
 
+  function handleAutosuggest(event: React.FormEvent<HTMLInputElement>) {
+    const cleanedText = cleanQueryText(event.currentTarget.value);
+    setIsValid(isValidInput(cleanedText, queryCriterion));
+    handleInput(cleanedText);
+    updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
+  }
+
   return (
     <div className={className}>
-      <label
-        htmlFor={textInputId}
-        className="block"
-      >
-        {label}
-      </label>
       <input
-        id={textInputId}
         type="text"
         autoComplete="off"
+        aria-label={label}
         list={dataListId}
-        onInput={(event) => {
-          const cleanedText = cleanQueryText(event.currentTarget.value);
-          setIsValid(isValidInput(cleanedText, queryCriterion));
-          handleInput(cleanedText);
-          updateSuggestions(cleanedText, namesOfAll[queryCriterion]);
-        }}
-        className={`w-full p-2 outline outline-1 outline-slate-700 hover:outline-2 focus:outline-cyan-500 ${validityClassName}`}
+        onFocus={handleAutosuggest}
+        onInput={handleAutosuggest}
+        className={`w-full p-2 border outline outline-0 shadow-inner rounded-sm hover:outline-1 focus:outline-1 ${theme.input} ${validityClassName}`}
       />
       <datalist id={dataListId}>
         {suggestions.map((suggestion, key) => {

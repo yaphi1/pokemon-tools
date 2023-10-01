@@ -11,6 +11,7 @@ import {
   isValidAbility,
   isValidEggGroup,
 } from "./validators";
+import { cleanEggGroupData } from "./dataCleaners";
 
 type PokemonType = string;
 type PokemonMove = string;
@@ -98,7 +99,7 @@ export async function getPokemonByEggGroup(eggGroup: EggGroup): Promise<PokemonR
   }
   const response = await fetch(`https://pokeapi.co/api/v2/egg-group/${eggGroup}/`);
   const json = await response.json();
-  const pokemon: PokemonReference[] = json.pokemon_species;
+  const pokemon = cleanEggGroupData(json.pokemon_species);
   window.localStorage.setItem(eggGroup, JSON.stringify(pokemon));
 
   return pokemon;

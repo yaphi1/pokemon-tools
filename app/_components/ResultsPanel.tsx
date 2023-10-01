@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPokemonData } from "../_utils/dataGetters";
 import { PokemonData, PokemonReference } from "../_utils/types";
+import { ChevronDown } from "../_assets/icons";
+import theme from "../_utils/themes";
 
 type ResultsPanelProps = {
   results: PokemonReference[];
@@ -112,48 +114,65 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
     setSortOrder(currentOrder);
   }
 
-  function getSortArrow() {
-    return sortOrder === 'defaultOrder' ? '∨' : '∧';
+  function getSortArrow(sortingCategory: SortBy) {
+    const shouldShowArrow = sortingCategory === sortBy;
+    const opacity = shouldShowArrow ? 'opacity-100' : 'opacity-0';
+    const rotation = sortOrder === 'defaultOrder' ? 0 : 180;
+
+    return (
+      <ChevronDown
+        className={`w-5 transition-all duration-500 ${opacity} relative top-px`}
+        style={{ transform: `rotateX(${rotation}deg)` }}
+        strokeColorClass={theme.icon}
+      />
+    );
   }
 
   return (
-    <div className="overflow-auto md:overflow-visible -mr-10 md:mr-0">
+    <div className="overflow-auto md:overflow-visible relative -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
-        <table className="table-fixed border-collapse mt-8 w-full">
-          <thead>
-            <tr className="bg-white font-bold sticky top-0 select-none">
+        <table className={`w-[800px] lg:w-full pr-8 lg:pr-0 block text-md ${theme.table}`}>
+          <thead className="block sticky font-bold -top-8 z-10">
+            <tr className={`select-none grid grid-cols-12 rounded-t-lg ${theme.tableHead}`}>
               <td
-                className="w-14 py-3 px-4 cursor-pointer whitespace-nowrap"
+                className="relative py-4 px-4 col-span-2 cursor-pointer flex items-center"
                 onClick={() => { sort('name'); }}
               >
-                <span className="underline decoration-2">
-                  Pokémon
-                </span> {sortBy === 'name' && getSortArrow()}
+                <span>Pokémon</span>
+                <span className="pl-2">{getSortArrow('name')}</span>
               </td>
-              <td className="py-3 px-4 w-60"></td>
+              <td className="relative py-4 px-4 col-span-4"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}
-                  className="w-28 text-right py-3 px-4 cursor-pointer"
+                  className="text-right relative py-4 pr-4 cursor-pointer flex items-center justify-end"
                   onClick={() => { sort(statType.id); }}
                 >
-                  {sortBy === statType.id && getSortArrow()} <span className="underline decoration-2">
-                    {statType.label}
-                  </span>
+                  <span>{getSortArrow(statType.id)}</span>
+                  <span className="pl-2">{statType.label}</span>
                 </td>
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block">
             {pokemonData.map((pokemon, key) => {
+              const isLastRow = key === pokemonData.length - 1;
+              const cornerRounding = isLastRow ? 'rounded-b-lg' : '';
+
               return (
-                <tr key={key} className="group bg-white odd:bg-orange-100">
-                  <td className="p-2">
-                    <img className="w-full transition-transform group-hover:scale-150" src={pokemon.spriteUrl} alt="" />
+                <tr key={key} className={`${theme.tableRow} grid grid-cols-12 ${cornerRounding}`}>
+                  <td className="px-4 flex justify-center items-center">
+                    <div className="px-2">
+                      <img className="w-[40px] min-w-[40px] transition-transform hover:scale-125" src={pokemon.spriteUrl} alt="" />
+                    </div>
                   </td>
-                  <td className="p-2">{formatName(pokemon.name)}</td>
+                  <td className="py-4 pl-0 pr-2 col-span-5 flex items-center">
+                    <div className="flex-1">{formatName(pokemon.name)}</div>
+                  </td>
                   {Object.values(pokemon.stats).map((stat, key) => (
-                    <td key={key} className="py-2 px-4 text-right">{stat}</td>
+                    <td key={key} className="py-2 px-4 text-right flex items-center">
+                      <div className="flex-1">{stat}</div>
+                    </td>
                   ))}
                 </tr>
               );
