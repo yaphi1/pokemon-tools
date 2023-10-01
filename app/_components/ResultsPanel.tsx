@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getPokemonData } from "../_utils/dataGetters";
 import { PokemonData, PokemonReference } from "../_utils/types";
 import { ChevronDown } from "../_assets/icons";
+import theme from "../_utils/themes";
 
 type ResultsPanelProps = {
   results: PokemonReference[];
@@ -122,7 +123,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
       <ChevronDown
         className={`w-5 transition-all duration-500 ${opacity} relative top-px`}
         style={{ transform: `rotateX(${rotation}deg)` }}
-        strokeColorClass="stroke-slate-400"
+        strokeColorClass={theme.icon}
       />
     );
   }
@@ -130,21 +131,21 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
   return (
     <div className="overflow-auto md:overflow-visible relative -mr-10 md:mr-0">
       {pokemonData.length > 0 && (
-        <table className="w-[800px] lg:w-full pr-8 lg:pr-0 block text-lg">
+        <table className={`w-[800px] lg:w-full pr-8 lg:pr-0 block text-md ${theme.table}`}>
           <thead className="block sticky font-bold -top-8 z-10">
-            <tr className="select-none grid grid-cols-12 rounded-t-lg bg-white">
+            <tr className={`select-none grid grid-cols-12 rounded-t-lg ${theme.tableHead}`}>
               <td
-                className="py-4 px-4 col-span-2 cursor-pointer flex items-center"
+                className="relative py-4 px-4 col-span-2 cursor-pointer flex items-center"
                 onClick={() => { sort('name'); }}
               >
                 <span>Pokémon</span>
                 <span className="pl-2">{getSortArrow('name')}</span>
               </td>
-              <td className="py-4 px-4 col-span-4"></td>
+              <td className="relative py-4 px-4 col-span-4"></td>
               {statTypes.map((statType, key) => (
                 <td
                   key={key}
-                  className="text-right py-4 pr-4 cursor-pointer flex items-center justify-end"
+                  className="text-right relative py-4 pr-4 cursor-pointer flex items-center justify-end"
                   onClick={() => { sort(statType.id); }}
                 >
                   <span>{getSortArrow(statType.id)}</span>
@@ -159,7 +160,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
               const cornerRounding = isLastRow ? 'rounded-b-lg' : '';
 
               return (
-                <tr key={key} className={`bg-white odd:bg-slate-200 grid grid-cols-12 ${cornerRounding}`}>
+                <tr key={key} className={`${theme.tableRow} grid grid-cols-12 ${cornerRounding}`}>
                   <td className="px-4 flex justify-center items-center">
                     <div className="px-2">
                       <img className="w-[40px] min-w-[40px] transition-transform hover:scale-125" src={pokemon.spriteUrl} alt="" />

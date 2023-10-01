@@ -1,5 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import theme from "./_utils/themes";
 
 export const metadata: Metadata = {
   title: 'Pokémon Tools',
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-100">{children}</body>
+      <body className={theme.body}>{children}</body>
     </html>
   )
 }

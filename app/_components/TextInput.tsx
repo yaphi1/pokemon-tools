@@ -6,6 +6,7 @@ import { eggGroupNames } from "../_data/eggGroups";
 import { cleanQueryText } from "../_utils/dataCleaners";
 import { QueryCriteria } from "../_utils/types";
 import { isValidInput } from "../_utils/validators";
+import theme from "../_utils/themes";
 
 type TextInputProps = {
   label: string;
@@ -78,7 +79,7 @@ export default function TextInput({
         list={dataListId}
         onFocus={handleAutosuggest}
         onInput={handleAutosuggest}
-        className={`w-full p-2 outline outline-1 outline-slate-400 shadow-inner rounded-sm hover:outline-2 focus:outline-cyan-500 focus:outline-2 ${validityClassName}`}
+        className={`w-full p-2 border outline outline-0 shadow-inner rounded-sm hover:outline-1 focus:outline-1 ${theme.input} ${validityClassName}`}
       />
       <datalist id={dataListId}>
         {suggestions.map((suggestion, key) => {

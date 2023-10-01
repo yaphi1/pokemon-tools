@@ -1,4 +1,5 @@
 import { ChevronDown } from "../_assets/icons";
+import theme from "../_utils/themes";
 
 type TextInputProps = {
   values: string[];
@@ -13,7 +14,7 @@ export default function Dropdown({ values, handleInput }: TextInputProps) {
   return (
     <div className="relative">
       <select
-        className="bg-white w-full p-2 outline outline-1 outline-slate-400 shadow-inner rounded-sm hover:outline-2 focus:outline-cyan-500 focus:outline-2"
+        className={`w-full p-2 border outline outline-0 shadow-inner rounded-sm hover:outline-1 focus:outline-1 ${theme.input}`}
         onInput={(event) => {
           handleInput(event.currentTarget.value);
         }}
@@ -25,7 +26,7 @@ export default function Dropdown({ values, handleInput }: TextInputProps) {
       </select>
       <ChevronDown
         className={`w-4 absolute top-1/2 right-1 transform -translate-y-1/2 pointer-events-none`}
-        strokeColorClass="stroke-slate-400"
+        strokeColorClass={theme.icon}
       />
     </div>
   );

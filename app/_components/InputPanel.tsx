@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown";
 import { typeNames } from "../_data/types";
 import { eggGroupNames } from "../_data/eggGroups";
 import { Gift, MagnifyingGlass, Swatch, Tag, Trophy } from "../_assets/icons";
+import theme from "../_utils/themes";
 
 type InputPanelProps = {
   setResults: (results: PokemonReference[]) => void;
@@ -36,11 +37,11 @@ export default function InputPanel({ setResults }: InputPanelProps) {
         }}
         className="grid gap-4"
       >
-        <div className="p-4 bg-slate-300 rounded-md">
+        <div className={`p-4 ${theme.sidebarGroup} rounded-md`}>
           <div className="mb-2 flex items-center">
             <Tag
               className="w-5 mr-1"
-              strokeColorClass="stroke-slate-400"
+              strokeColorClass={theme.icon}
             />
             <span>Types</span>
           </div>
@@ -63,11 +64,11 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           </div>
         </div>
         
-        <div className="p-4 bg-slate-300 rounded-md">
+        <div className={`p-4 ${theme.sidebarGroup} rounded-md`}>
           <div className="mb-2 flex items-center">
             <Swatch
               className="w-5 mr-1"
-              strokeColorClass="stroke-slate-400"
+              strokeColorClass={theme.icon}
             />
             <span>Moves</span>
           </div>
@@ -90,11 +91,11 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           </div>
         </div>
 
-        <div className="p-4 bg-slate-300 rounded-md">
+        <div className={`p-4 ${theme.sidebarGroup} rounded-md`}>
           <div className="mb-2 flex items-center">
             <Trophy
               className="w-5 mr-1"
-              strokeColorClass="stroke-slate-400"
+              strokeColorClass={theme.icon}
             />
             <span>Ability</span>
           </div>
@@ -111,11 +112,11 @@ export default function InputPanel({ setResults }: InputPanelProps) {
           />
         </div>
         
-        <div className="p-4 bg-slate-300 rounded-md">
+        <div className={`p-4 ${theme.sidebarGroup} rounded-md`}>
           <div className="mb-2 flex items-center">
             <Gift
               className="w-5 mr-1"
-              strokeColorClass="stroke-slate-400"
+              strokeColorClass={theme.icon}
             />
             <span>Egg Groups</span>
           </div>
@@ -139,11 +140,11 @@ export default function InputPanel({ setResults }: InputPanelProps) {
 
         <button
           type="submit"
-          className="group rounded-md col-span-full p-4 bg-cyan-950 hover:bg-cyan-700 text-slate-200 flex items-center justify-center"
+          className={`${theme.button} group rounded-md col-span-full p-4 flex items-center justify-center`}
         >
           <MagnifyingGlass
             className="w-5 mr-2 pointer-events-none"
-            strokeColorClass="stroke-slate-400 group-hover:stroke-slate-200"
+            strokeColorClass="stroke-slate-200/70 group-hover:stroke-slate-100/70"
           />
           <span className="pr-4">Click to Search</span>
         </button>
