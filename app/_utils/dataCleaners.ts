@@ -19,3 +19,14 @@ export function cleanEggGroupData(pokemon_species: PokemonReference[]) {
 
   return cleanedData;
 }
+
+export function removeDuplicatePokemon(pokemon: PokemonReference[]) {
+  const foundPokemon = new Set();
+  const result = pokemon.filter(individual => {
+    const isDuplicate = foundPokemon.has(individual.name);
+    foundPokemon.add(individual.name);
+    return !isDuplicate;
+  });
+
+  return result;
+}

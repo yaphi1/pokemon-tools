@@ -11,7 +11,7 @@ import {
   isValidAbility,
   isValidEggGroup,
 } from "./validators";
-import { cleanEggGroupData } from "./dataCleaners";
+import { cleanEggGroupData, removeDuplicatePokemon } from "./dataCleaners";
 
 type PokemonType = string;
 type PokemonMove = string;
@@ -112,6 +112,8 @@ export async function getPokemonByQuery(query: Query) {
   pokemonList = await filterByTypes(pokemonList, query.types);
   pokemonList = await filterByAbility(pokemonList, query.ability);
   pokemonList = await filterByEggGroups(pokemonList, query.eggGroups);
+
+  pokemonList = removeDuplicatePokemon(pokemonList);
 
   return pokemonList;
 }
