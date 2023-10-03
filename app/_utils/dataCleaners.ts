@@ -30,3 +30,15 @@ export function removeDuplicatePokemon(pokemon: PokemonReference[]) {
 
   return result;
 }
+
+export function cleanLocalStorage({ latestUpdate } : { latestUpdate: string }) {
+  const lastCleaned = localStorage.getItem('lastCleaned');
+  const wasNeverCleaned = !lastCleaned;
+  const hasNewUpdate = lastCleaned !== latestUpdate;
+  const shouldClean = wasNeverCleaned || hasNewUpdate;
+
+  if (shouldClean) {
+    localStorage.clear();
+    localStorage.setItem('lastCleaned', latestUpdate);
+  }
+}

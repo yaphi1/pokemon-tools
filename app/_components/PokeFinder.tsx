@@ -1,14 +1,19 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PokemonReference } from "../_utils/types";
 import InputPanel from "./InputPanel";
 import ResultsPanel from "./ResultsPanel";
 import { Pokeball } from "../_assets/icons";
 import theme from "../_utils/themes";
+import { cleanLocalStorage } from "../_utils/dataCleaners";
 
 export default function PokeFinder() {
   const [results, setResults] = useState<PokemonReference[]>([]);
+
+  useEffect(() => {
+    cleanLocalStorage({ latestUpdate: '10-2-2023-9:58pm' });
+  }, []);
 
   return (
     <div className="lg:flex h-screen">
