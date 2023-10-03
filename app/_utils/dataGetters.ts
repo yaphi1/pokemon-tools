@@ -71,6 +71,14 @@ async function getPokemonDisplayName({ name, url }: PokemonReference) {
   return fullDisplayName;
 }
 
+export function getPokedexUrl(displayName: string) {
+  const nameWithoutExtraInfo = displayName.split(' (')[0];
+  const nameWithSpacesReplaced = nameWithoutExtraInfo.replace(/\s/g, '_');
+  const url = `https://bulbapedia.bulbagarden.net/wiki/${nameWithSpacesReplaced}_(Pok%C3%A9mon)`;
+
+  return url;
+}
+
 export async function getPokemonByMove(move: PokemonMove): Promise<PokemonReference[]> {
   if (!isValidMove(move)) { return []; }
 

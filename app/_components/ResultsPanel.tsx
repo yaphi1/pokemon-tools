@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPokemonData } from "../_utils/dataGetters";
+import { getPokedexUrl, getPokemonData } from "../_utils/dataGetters";
 import { PokemonData, PokemonReference } from "../_utils/types";
 import { ChevronDown } from "../_assets/icons";
 import theme from "../_utils/themes";
@@ -153,7 +153,15 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                     </div>
                   </td>
                   <td className="py-4 pl-0 pr-2 col-span-5 flex items-center">
-                    <div className="flex-1">{pokemon.displayName}</div>
+                    <div className="flex-1">
+                      <a
+                        href={getPokedexUrl(pokemon.displayName)}
+                        target="_blank"
+                        className="hover:underline"
+                      >
+                        {pokemon.displayName}
+                      </a>
+                    </div>
                   </td>
                   {Object.values(pokemon.stats).map((stat, key) => (
                     <td key={key} className="py-2 px-4 text-right flex items-center">
