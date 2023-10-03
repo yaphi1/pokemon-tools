@@ -16,6 +16,7 @@ export type ImmerStateUpdaterFn<TypeOfState> = (state?: TypeOfState | undefined)
 
 export type PokemonData = {
   name: string;
+  displayName: string;
   spriteUrl: string;
   stats: {
     hp: number;

@@ -26,9 +26,12 @@ export async function getPokemonData({ name, url }: PokemonReference): Promise<P
   }
   const response = await fetch(url);
   const json = await response.json();
-  const { sprites, stats } = json;
+  const { sprites, stats, species } = json;
+  const displayName = await getPokemonDisplayName({ name, url: species.url });
+
   const pokemonData: PokemonData = {
     name,
+    displayName,
     spriteUrl: sprites.other.home.front_default || sprites.front_default,
     stats: {
       hp: stats[0].base_stat,
@@ -41,6 +44,31 @@ export async function getPokemonData({ name, url }: PokemonReference): Promise<P
   };
   window.localStorage.setItem(name, JSON.stringify(pokemonData));
   return pokemonData;
+}
+
+async function getPokemonDisplayName({ name, url }: PokemonReference) {
+  const hasHyphen = name.includes('-');
+  if (!hasHyphen) {
+    const capitalizedName = `${name[0].toUpperCase()}${name.slice(1)}`;
+    return capitalizedName;
+  }
+
+  const response = await fetch(url);
+  const json = await response.json();
+  const localizedNames: any[] = json.names;
+  const language = 'en';
+  const displayName: string = localizedNames.find(item => item.language.name === language).name;
+
+  const baseNameInfo = displayName.toLowerCase().replace(/\s/g, '-');
+  const nameHasExtraInfo = baseNameInfo !== name;
+  const extraInfo = name.replace(baseNameInfo, '').slice(1);
+
+  const fullDisplayName = nameHasExtraInfo ?
+    `${displayName} (${extraInfo})` :
+    displayName
+  ;
+
+  return fullDisplayName;
 }
 
 export async function getPokemonByMove(move: PokemonMove): Promise<PokemonReference[]> {

@@ -62,20 +62,6 @@ function sortFullResults(
   return sortedResults;
 }
 
-function handleHyphens(name: string) {
-  return name.replace(/-/, ' (') + ')';
-}
-
-function formatName(name: string) {
-  const capitalizedName = `${name[0].toUpperCase()}${name.slice(1)}`;
-  const hasHyphen = capitalizedName.includes('-');
-  const formattedName = hasHyphen ?
-    handleHyphens(capitalizedName) :
-    capitalizedName
-  ;
-  return formattedName;
-}
-
 export default function ResultsPanel({ results }: ResultsPanelProps) {
   const [pokemonData, setPokemonData] = useState<PokemonData[]>([]);
   const [sortBy, setSortBy] = useState<SortBy>('name');
@@ -167,7 +153,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                     </div>
                   </td>
                   <td className="py-4 pl-0 pr-2 col-span-5 flex items-center">
-                    <div className="flex-1">{formatName(pokemon.name)}</div>
+                    <div className="flex-1">{pokemon.displayName}</div>
                   </td>
                   {Object.values(pokemon.stats).map((stat, key) => (
                     <td key={key} className="py-2 px-4 text-right flex items-center">
